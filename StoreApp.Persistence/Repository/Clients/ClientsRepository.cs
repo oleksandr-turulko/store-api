@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StoreApp.Application.Features.Clients.Get;
+using StoreApp.Application.Features.Clients.Get.GetClientsPopularCategories;
 using StoreApp.Application.Features.Products.Get;
 using StoreApp.Application.Repository.Clients;
 using StoreApp.Core.Entities;
@@ -43,5 +44,24 @@ public class ClientsRepository : BaseRepository<Client>, IClientsRepository
                 LastPurchaseDate = c.Purchases.OrderByDescending(p => p.PurchaseDate).Last().PurchaseDate
             }).AsEnumerable();
     }
-       
+    public async Task<List<GetClientsPopularCategoryResponse>> GetClientsPopularCategoryResponseAsync(Guid userId, CancellationToken cancellationToken)
+    {
+        var clientExists = await _context.Clients.AnyAsync(c => c.Id == userId, cancellationToken);
+
+        if (!clientExists)
+            return null;
+
+        var result = await _context.PurchaseItems
+            .Where(pi => pi.Purchase.ClientId == userId)
+            .GroupBy(pi => pi.Product.Category)
+            .Select(g => new GetClientsPopularCategoryResponse
+            {
+                Name = g.Key,
+                PurchasesCount =  g.Sum(pi => pi.Quantity)
+            })
+            .ToListAsync(cancellationToken);
+
+        return result;
+    }
+
 }

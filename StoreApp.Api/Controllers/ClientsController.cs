@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using StoreApp.Api.Controllers.Common;
 using StoreApp.Application.Features.Clients.Get;
+using StoreApp.Application.Features.Clients.Get.GetClientsPopularCategories;
 using StoreApp.Application.Features.Products.Get;
 
 namespace StoreApp.Api.Controllers;
@@ -30,4 +31,13 @@ public class ClientsController:BaseController
         return Ok(customers);
     }
 
+    [HttpGet("users/{id:guid}/popular-categories")]
+    public async Task<ActionResult> GetClientsPopularCategories(Guid id, CancellationToken cancellationToken)
+    {
+        var categories = await _mediator.Send(new GetClientsPopularCategoriesRequest(){Id = id});
+        if(categories == null)
+            return NotFound();
+        
+        return Ok(categories);
+    }
 }
