@@ -9,7 +9,7 @@ public static class ServiceExtensions
 {
     public static void ConfigurePersistence(this IServiceCollection services, IConfiguration configuration)
     {
-        var connection = configuration.GetConnectionString("MSQl");
+        var connection = configuration.GetConnectionString("MSSQl");
         services.AddDbContext<StoreAppDbContext>(options =>
             options.UseSqlServer(connection));
     }
