@@ -1,19 +1,14 @@
 ﻿using AutoMapper;
 using MediatR;
+using StoreApp.Application.Features.Clients.Get.Common;
 using StoreApp.Application.Repository.Clients;
 
 namespace StoreApp.Application.Features.Clients.Get;
 
-public class GetClientsByBirthdayHandler:IRequestHandler<GetClientsByBirthdayRequest, IEnumerable<GetClientsByBirthdayResponse>>
+public class GetClientsByBirthdayHandler:BaseClientRequestHandler, IRequestHandler<GetClientsByBirthdayRequest, IEnumerable<GetClientsByBirthdayResponse>>
 {
-    private readonly IMapper _mapper;
-    private readonly IClientsRepository _clientsRepository;
-
-    public GetClientsByBirthdayHandler(IClientsRepository clientsRepository, IMapper mapper)
-    {
-        _clientsRepository = clientsRepository;
-        _mapper = mapper;
-    }
+    public GetClientsByBirthdayHandler(IClientsRepository clientsRepository, IMapper mapper):base(clientsRepository, mapper)
+    { }
 
     public async Task<IEnumerable<GetClientsByBirthdayResponse>> Handle(GetClientsByBirthdayRequest request,
         CancellationToken cancellationToken)
