@@ -7,7 +7,7 @@ namespace StoreApp.Persistence.Repository;
 
 public abstract class BaseRepository<T>:IBaseRepository<T> where T : BaseEntity
 {
-    private readonly StoreAppDbContext _context;
+    protected readonly StoreAppDbContext _context;
 
     protected BaseRepository(StoreAppDbContext context)
     {
