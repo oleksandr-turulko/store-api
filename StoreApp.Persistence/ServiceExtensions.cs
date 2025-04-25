@@ -12,7 +12,5 @@ public static class ServiceExtensions
         var connection = configuration.GetConnectionString("MSQl");
         services.AddDbContext<StoreAppDbContext>(options =>
             options.UseSqlServer(connection));
-
-        // services.AddScoped<ITodosRepository, TodosRepository>();
     }
 }
