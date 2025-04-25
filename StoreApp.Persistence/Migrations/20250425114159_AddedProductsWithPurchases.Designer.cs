@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StoreApp.Persistence.Context;
 
@@ -11,9 +12,11 @@ using StoreApp.Persistence.Context;
 namespace StoreApp.Persistence.Migrations
 {
     [DbContext(typeof(StoreAppDbContext))]
-    partial class StoreAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250425114159_AddedProductsWithPurchases")]
+    partial class AddedProductsWithPurchases
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
