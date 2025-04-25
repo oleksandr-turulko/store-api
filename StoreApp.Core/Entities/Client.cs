@@ -22,4 +22,9 @@ public class Client: BaseEntity
     public DateOnly DateOfRegistration { get; set; }
     
     public ICollection<Purchase> Purchases { get; set; }
+
+    public override string ToString()
+    {
+        return $"{FirstName} {LastName} {MiddleName}";
+    }
 }
