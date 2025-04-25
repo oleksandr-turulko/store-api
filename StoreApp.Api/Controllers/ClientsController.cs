@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using StoreApp.Api.Controllers.Common;
 using StoreApp.Application.Features.Clients.Get;
+using StoreApp.Application.Features.Products.Get;
 
 namespace StoreApp.Api.Controllers;
 
@@ -21,4 +22,12 @@ public class ClientsController:BaseController
         var customers = await _mediator.Send(new GetClientsByBirthdayRequest(){ Birthday = date}, cancellationToken);
         return Ok(customers);
     }
+    
+    [HttpGet("get-recent-customers-by-period")]
+    public async Task<ActionResult> GetCustomersByBirthday([FromQuery]int period, CancellationToken cancellationToken)
+    {
+        var customers = await _mediator.Send(new GetClientsByRecentPurchasesRequest(){ Period = period}, cancellationToken);
+        return Ok(customers);
+    }
+
 }
