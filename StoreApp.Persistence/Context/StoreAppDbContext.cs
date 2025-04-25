@@ -1,6 +1,9 @@
-﻿namespace StoreApp.Persistence.Context;
+﻿using Microsoft.EntityFrameworkCore;
 
-public class StoreAppDbContext
+namespace StoreApp.Persistence.Context;
+
+public class StoreAppDbContext : DbContext
 {
-    
+    public StoreAppDbContext(DbContextOptions<StoreAppDbContext> options):base(options)
+    { }
 }
